@@ -20,7 +20,12 @@ sub fix_filename {
 
     #next if $old =~ /^\./;                        # skip dotfiles
     my $new = $old;
-    $new =~ s/md5//g;
+    #$new =~ s/md5//g;
+    $new =~ s/ö|ő|ó|ö/o/g; # fix diacritics
+    $new =~ s/ü|ű|ú/u/g;
+    $new =~ s/á/a/g;
+    $new =~ s/é/e/g;
+    $new =~ s/í/i/g;
     $new =~ y/A-Z/a-z/;                           # lowercase
     $new =~ s/\%20/_/g
       ;    # remove url encoded characters, need to use the funcion i found...
@@ -30,6 +35,7 @@ sub fix_filename {
     $new =~ tr/\.//s;      # squeeze any duplicate dots
     return $new;
 }
+
 
 sub get_md5 {
     my $file;
